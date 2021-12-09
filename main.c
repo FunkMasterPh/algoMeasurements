@@ -2,7 +2,7 @@
 #include <sys/time.h>
 #include <stdlib.h>
 
-#define SIZE 1000000
+#define SIZE 10000000
 
 struct timeval stop, start;
 
@@ -83,7 +83,7 @@ int* createArr(int size){
     ar = (int*)malloc(sizeof(int) * size);
     merge_b = (int*)malloc(sizeof(int) * size);
     FILE* f;
-    f = fopen("pi.txt", "r");
+    f = fopen("reverse_sorted.txt", "r");
     if(!f) {
         printf("Failed to open file.\n");
         return NULL;
@@ -106,8 +106,8 @@ int main(){
     scanf(" %c", &choice);
     switch(choice){
         case('1'):
-            for(int i = 1; i < SIZE; i += 1000){ 
-                log = fopen("algodata.csv", "a");
+            for(int i = 1; i < SIZE; ((i < 10000) ? (i++) : (i += 50000))){ 
+                log = fopen("algodata_reverse.csv", "a");
                 if(!log) {
                     printf("Failed to open file.\n");
                     break;
@@ -126,10 +126,10 @@ int main(){
             
             break;
         case('2'):
-            for(int i = 1; i < SIZE; i += 1000){ 
+            for(int i = 1; i < SIZE; ((i < 10000) ? (i++) : (i += 50000))){ 
                 arr = createArr(i);
                 if(arr) {
-                    log = fopen("algodata.csv", "a");
+                    log = fopen("algodata_reverse.csv", "a");
                     if(!log) {
                         printf("Failed to open file.\n");
                         break;
@@ -145,10 +145,10 @@ int main(){
             }
             break;
         case('3'):
-            for(int i = 1; i < SIZE; i += 1000){ 
+            for(int i = 1; i < SIZE; ((i < 10000) ? (i++) : (i += 50000))){ 
                 arr = createArr(i);
                 if(arr) {
-                    log = fopen("algodata.csv", "a");
+                    log = fopen("algodata_reverse.csv", "a");
                     if(!log) {
                         printf("Failed to open file.\n");
                         break;
@@ -164,10 +164,10 @@ int main(){
             }
             break;
         case('4'):
-            for(int i = 1; i < SIZE; i += 1000){ 
+            for(int i = 1; i < SIZE; ((i < 10000) ? (i++) : (i += 50000))){ 
                 arr = createArr(i);
                 if(arr) {
-                    log = fopen("algodata.csv", "a");
+                    log = fopen("algodata_reverse.csv", "a");
                     if(!log) {
                         printf("Failed to open file.\n");
                         break;
