@@ -11,7 +11,7 @@ int *merge_b;
 int c(const void* a, const void* b){
     return (*(const int*)a - *(const int*)b);
 }
-char ouahfäouasdhgfäaiosdhgäapsdihgfäadspfhiäasdpfhiaspihfaspdihfasipdhf;
+
 void merge(int merge_a[], int l, int mid, int h) {
     int i = l;
     int j = mid + 1;
