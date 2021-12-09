@@ -97,6 +97,8 @@ int* createArr(int size){
 }
 
 int main(){
+    FILE* log;
+    
     int* arr;
     char choice;
 
@@ -105,27 +107,40 @@ int main(){
     switch(choice){
         case('1'):
             for(int i = 1; i < SIZE; i += 1000){ 
+                log = fopen("algodata.csv", "a");
+                if(!log) {
+                    printf("Failed to open file.\n");
+                    break;
+                }
                 arr = createArr(i);
                 if(arr) {
                     gettimeofday(&start, NULL);
                     insertionSort(arr, i);
                     gettimeofday(&stop, NULL);
-                    printf("Insertion sort took %d elements and it took %lu μS\n", i, (stop.tv_sec - start.tv_sec) * 1000000 + stop.tv_usec - start.tv_usec);
+                    fprintf(log, "IS,%d el,%lu μS\n", i, (stop.tv_sec - start.tv_sec) * 1000000 + stop.tv_usec - start.tv_usec);
                     free(arr);
                     free(merge_b);
+                    fclose(log);
                 } else break;
-            }
+            } 
+            
             break;
         case('2'):
             for(int i = 1; i < SIZE; i += 1000){ 
                 arr = createArr(i);
                 if(arr) {
+                    log = fopen("algodata.csv", "a");
+                    if(!log) {
+                        printf("Failed to open file.\n");
+                        break;
+                    }
                     gettimeofday(&start, NULL);
                     mergeSort(arr, i);
                     gettimeofday(&stop, NULL);
-                    printf("Merge sort took %d elements and it took %lu μS\n", i, (stop.tv_sec - start.tv_sec) * 1000000 + stop.tv_usec - start.tv_usec);
+                    fprintf(log, "MS,%d el,%lu μS\n", i, (stop.tv_sec - start.tv_sec) * 1000000 + stop.tv_usec - start.tv_usec);
                     free(arr);
                     free(merge_b);
+                    fclose(log);
                 } else break;
             }
             break;
@@ -133,12 +148,18 @@ int main(){
             for(int i = 1; i < SIZE; i += 1000){ 
                 arr = createArr(i);
                 if(arr) {
+                    log = fopen("algodata.csv", "a");
+                    if(!log) {
+                        printf("Failed to open file.\n");
+                        break;
+                    }
                     gettimeofday(&start, NULL);
                     bubbleSort(arr, i);
                     gettimeofday(&stop, NULL);
-                    printf("Bubble sort took %d elements and it took %lu μS\n", i, (stop.tv_sec - start.tv_sec) * 1000000 + stop.tv_usec - start.tv_usec);
+                    fprintf(log, "BS,%d el,%lu μS\n", i, (stop.tv_sec - start.tv_sec) * 1000000 + stop.tv_usec - start.tv_usec);
                     free(arr);
                     free(merge_b);
+                    fclose(log);
                 } else break;
             }
             break;
@@ -146,12 +167,18 @@ int main(){
             for(int i = 1; i < SIZE; i += 1000){ 
                 arr = createArr(i);
                 if(arr) {
+                    log = fopen("algodata.csv", "a");
+                    if(!log) {
+                        printf("Failed to open file.\n");
+                        break;
+                    }
                     gettimeofday(&start, NULL);
                     qsort(arr, i, sizeof(int), c);
                     gettimeofday(&stop, NULL);
-                    printf("Quick sort took %d elements and it took %lu μS\n", i, (stop.tv_sec - start.tv_sec) * 1000000 + stop.tv_usec - start.tv_usec);
+                    fprintf(log, "QS,%d el,%lu μS\n", i, (stop.tv_sec - start.tv_sec) * 1000000 + stop.tv_usec - start.tv_usec);
                     free(arr);
                     free(merge_b);
+                    fclose(log);
                 } else break;
             }
             break;
