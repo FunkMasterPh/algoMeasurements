@@ -8,13 +8,12 @@ struct timeval stop, start;
 
 int *merge_b;
 
-
 int c(const void* a, const void* b){
     return (*(const int*)a - *(const int*)b);
 }
 
-// functon "splits" one array into two and compares index i (from index 'low' until 'mid')
-// to index j, and then copies the smaller element to merge_b.
+// functon "splits" one array into two and compares index i (from index 'low'
+// until 'mid') to index j, and then copies the smaller element to merge_b.
 
 void merge(int merge_a[], int low, int mid, int high) {
     int i = low; // starting index of merge_a, "first" array to be sorted
@@ -33,23 +32,27 @@ void merge(int merge_a[], int low, int mid, int high) {
 }
 
 void mergeSort(int merge_a[], int size) {
-    int mid, p, h, i, l;
-    
-    for(p = 2; p <= size; p = p * 2) {
-        for(i = 0; i + p - 1 < size; i = i + p) {
-            l = i;
-            h = i + p - 1;
-            mid = (l+h) / 2;
-            merge(merge_a, l, mid, h);
-        }
-        if(size - i > p / 2) {
-            l = i;
-            h = i + p - 1;
-            mid = (l + h) / 2;
-            merge(merge_a, l, mid, size - 1);
+    int low, mid, high, pair, idx;
+    // We continously merge a pair of lists. At first, every single element
+    // in the list is considered a list. Each time we pass through the
+    // loop, we pair up one list to it's neighbor, merge and sort it,
+    // which causes the size of each pair (or list) to double every
+    // passthrough. 
+    for(pair = 2; pair <= size; pair = pair * 2) { 
+        for(idx = 0; idx + pair - 1 < size; idx = idx + pair) {
+            low = idx;
+            high = idx + pair - 1;
+            mid = (low+high) / 2;
+            merge(merge_a, low, mid, high);
+        } // In case of uneven number of elements, we merge left over element.
+        if(size - idx > pair / 2) {
+            low = idx;
+            high = idx + pair - 1;
+            mid = (low + high) / 2;
+            merge(merge_a, low, mid, size - 1);
         }
     }
-    if(p / 2 < size) merge(merge_a, 0, p / 2 - 1, size - 1);
+    if(pair / 2 < size) merge(merge_a, 0, pair / 2 - 1, size - 1);
     
 }
 
@@ -93,7 +96,7 @@ int* createArr(int size){
     ar = (int*)malloc(sizeof(int) * size);
     merge_b = (int*)malloc(sizeof(int) * size);
     FILE* f;
-    f = fopen("reverse_sorted.txt", "r");
+    f = fopen("sorted.txt", "r");
     if(!f) {
         printf("Failed to open file.\n");
         return NULL;
@@ -129,7 +132,7 @@ int main(){
                     gettimeofday(&start, NULL);
                     insertionSort(arr, i);
                     gettimeofday(&stop, NULL);
-                    log = fopen("algodata_reverse.csv", "a");
+                    log = fopen("algodata_sorted.csv", "a");
                     if(!log) {
                         printf("Failed to open file.\n");
                         break;
@@ -147,7 +150,7 @@ int main(){
                     gettimeofday(&start, NULL);
                     mergeSort(arr, i);
                     gettimeofday(&stop, NULL);
-                    log = fopen("algodata_reverse.csv", "a");
+                    log = fopen("algodata_sorted.csv", "a");
                     if(!log) {
                         printf("Failed to open file.\n");
                         break;
@@ -166,7 +169,7 @@ int main(){
                     gettimeofday(&start, NULL);
                     bubbleSort(arr, i);
                     gettimeofday(&stop, NULL);
-                    log = fopen("algodata_reverse.csv", "a");
+                    log = fopen("algodata_sorted.csv", "a");
                     if(!log) {
                         printf("Failed to open file.\n");
                         break;
@@ -185,7 +188,7 @@ int main(){
                     gettimeofday(&start, NULL);
                     qsort(arr, i, sizeof(int), c);
                     gettimeofday(&stop, NULL);
-                    log = fopen("algodata_reverse.csv", "a");
+                    log = fopen("algodata_sorted.csv", "a");
                     if(!log) {
                         printf("Failed to open file.\n");
                         break;
