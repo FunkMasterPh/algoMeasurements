@@ -88,7 +88,7 @@ int* createArr(int size){
     ar = (int*)malloc(sizeof(int) * size);
     merge_b = (int*)malloc(sizeof(int) * size);
     FILE* f;
-    f = fopen("nearly_sorted_50000.txt", "r");
+    f = fopen("reverse_sorted.txt", "r");
     if(!f) {
         printf("Failed to open file.\n");
         return NULL;
@@ -124,12 +124,12 @@ int main(){
                     gettimeofday(&start, NULL);
                     insertionSort(arr, i);
                     gettimeofday(&stop, NULL);
-                    log = fopen("algodata_near_50k.csv", "a");
+                    log = fopen("algodata_reverse.csv", "a");
                     if(!log) {
                         printf("Failed to open file.\n");
                         break;
                     }
-                    fprintf(log, "IS,%d el,%lu μS\n", i, (stop.tv_sec - start.tv_sec) * 1000000 + stop.tv_usec - start.tv_usec);
+                    fprintf(log, "IS,%d,%lu\n", i, (stop.tv_sec - start.tv_sec) * 1000000 + stop.tv_usec - start.tv_usec);
                     free(arr);
                     free(merge_b);
                     fclose(log);
@@ -142,12 +142,12 @@ int main(){
                     gettimeofday(&start, NULL);
                     mergeSort(arr, i);
                     gettimeofday(&stop, NULL);
-                    log = fopen("algodata_near_50k.csv", "a");
+                    log = fopen("algodata_reverse.csv", "a");
                     if(!log) {
                         printf("Failed to open file.\n");
                         break;
                     }
-                    fprintf(log, "MS,%d el,%lu μS\n", i, (stop.tv_sec - start.tv_sec) * 1000000 + stop.tv_usec - start.tv_usec);
+                    fprintf(log, "MS,%d,%lu\n", i, (stop.tv_sec - start.tv_sec) * 1000000 + stop.tv_usec - start.tv_usec);
                     free(arr);
                     free(merge_b);
                     fclose(log);
@@ -161,12 +161,12 @@ int main(){
                     gettimeofday(&start, NULL);
                     bubbleSort(arr, i);
                     gettimeofday(&stop, NULL);
-                    log = fopen("algodata_near_50k.csv", "a");
+                    log = fopen("algodata_reverse.csv", "a");
                     if(!log) {
                         printf("Failed to open file.\n");
                         break;
                     }
-                    fprintf(log, "BS,%d el,%lu μS\n", i, (stop.tv_sec - start.tv_sec) * 1000000 + stop.tv_usec - start.tv_usec);
+                    fprintf(log, "BS,%d,%lu\n", i, (stop.tv_sec - start.tv_sec) * 1000000 + stop.tv_usec - start.tv_usec);
                     free(arr);
                     free(merge_b);
                     fclose(log);
@@ -180,12 +180,12 @@ int main(){
                     gettimeofday(&start, NULL);
                     qsort(arr, i, sizeof(int), c);
                     gettimeofday(&stop, NULL);
-                    log = fopen("algodata_near_50k.csv", "a");
+                    log = fopen("algodata_reverse.csv", "a");
                     if(!log) {
                         printf("Failed to open file.\n");
                         break;
                     }
-                    fprintf(log, "QS,%d el,%lu μS\n", i, (stop.tv_sec - start.tv_sec) * 1000000 + stop.tv_usec - start.tv_usec);
+                    fprintf(log, "QS,%d,%lu\n", i, (stop.tv_sec - start.tv_sec) * 1000000 + stop.tv_usec - start.tv_usec);
                     free(arr);
                     free(merge_b);
                     fclose(log);
