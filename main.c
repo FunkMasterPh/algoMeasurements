@@ -8,43 +8,51 @@ struct timeval stop, start;
 
 int *merge_b;
 
-
 int c(const void* a, const void* b){
     return (*(const int*)a - *(const int*)b);
 }
 
-void merge(int merge_a[], int l, int mid, int h) {
-    int i = l;
-    int j = mid + 1;
-    int k = l;
+// functon "splits" one array into two and compares index i (from index 'low'
+// until 'mid') to index j, and then copies the smaller element to merge_b.
 
-    while(i <= mid && j <= h) {
+void merge(int merge_a[], int low, int mid, int high) {
+    int i = low; // starting index of merge_a, "first" array to be sorted
+    int j = mid + 1; // starting index of "second" array of merge_a to be sorted
+    int k = low; // starting index of merge_b
+    // sets the upper limits for the two "separate" lists
+    while(i <= mid && j <= high) {  
         if(merge_a[i] < merge_a[j]) merge_b[k++] = merge_a[i++];
         else merge_b[k++] = merge_a[j++];
-    }
+    } // if there are elements left in either lists, copy the remaining
+      // element to merge_b
     for(; i <= mid; i++) merge_b[k++] = merge_a[i];
-    for(; j <= h; j++) merge_b[k++] = merge_a[j];
-    for(i = l; i <= h; i++) merge_a[i] = merge_b[i];
+    for(; j <= high; j++) merge_b[k++] = merge_a[j];
+    // copy sorted elements back from merge_b to merge_a
+    for(i = low; i <= high; i++) merge_a[i] = merge_b[i];
 }
 
 void mergeSort(int merge_a[], int size) {
-    int mid, p, h, i, l;
-    
-    for(p = 2; p <= size; p = p * 2) {
-        for(i = 0; i + p - 1 < size; i = i + p) {
-            l = i;
-            h = i + p - 1;
-            mid = (l+h) / 2;
-            merge(merge_a, l, mid, h);
-        }
-        if(size - i > p / 2) {
-            l = i;
-            h = i + p - 1;
-            mid = (l + h) / 2;
-            merge(merge_a, l, mid, size - 1);
+    int low, mid, high, pair, idx;
+    // We continously merge a pair of lists. At first, every single element
+    // in the list is considered a list. Each time we pass through the
+    // loop, we pair up one list to it's neighbor, merge and sort it,
+    // which causes the size of each pair (or list) to double every
+    // passthrough. 
+    for(pair = 2; pair <= size; pair = pair * 2) { 
+        for(idx = 0; idx + pair - 1 < size; idx = idx + pair) {
+            low = idx;
+            high = idx + pair - 1;
+            mid = (low+high) / 2;
+            merge(merge_a, low, mid, high);
+        } // In case of uneven number of elements, we merge left over element.
+        if(size - idx > pair / 2) {
+            low = idx;
+            high = idx + pair - 1;
+            mid = (low + high) / 2;
+            merge(merge_a, low, mid, size - 1);
         }
     }
-    if(p / 2 < size) merge(merge_a, 0, p / 2 - 1, size - 1);
+    if(pair / 2 < size) merge(merge_a, 0, pair / 2 - 1, size - 1);
     
 }
 
