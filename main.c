@@ -51,15 +51,15 @@ void mergeSort(int merge_a[], int size) {
 void insertionSort(int a[], int size){
     int j = 0, temp = 0;
     
-    for(int i = 1; i < size; i++){
-        temp = a[i];
-        j = i - 1;
+    for(int i = 1; i < size; i++){  
+        temp = a[i];   //stores i index in temp variable,
+        j = i - 1;     //and sets j value to one less than i
 
-        while (j >= 0 && a[j] > temp) {
-            a[j + 1] = a[j];
-            j = j - 1;
+        while (j >= 0 && a[j] > temp) { 
+            a[j+1] = a[j];    //moves any number higher than temp to the right in array
+            j = j - 1;      //decrements j to check if there are more higher values to left of starting position
         }
-        a[j+1] = temp;
+        a[j+1] = temp;  //since j is one less than i j+1 will be the previous element so the lower value (temp) will be stored to the left in array
     }
 }
 
@@ -88,7 +88,7 @@ int* createArr(int size){
     ar = (int*)malloc(sizeof(int) * size);
     merge_b = (int*)malloc(sizeof(int) * size);
     FILE* f;
-    f = fopen("reverse_sorted.txt", "r");
+    f = fopen("pi.txt", "r");
     if(!f) {
         printf("Failed to open file.\n");
         return NULL;
@@ -124,7 +124,7 @@ int main(){
                     gettimeofday(&start, NULL);
                     insertionSort(arr, i);
                     gettimeofday(&stop, NULL);
-                    log = fopen("algodata_reverse.csv", "a");
+                    log = fopen("algodata_pi.csv", "a");
                     if(!log) {
                         printf("Failed to open file.\n");
                         break;
@@ -142,7 +142,7 @@ int main(){
                     gettimeofday(&start, NULL);
                     mergeSort(arr, i);
                     gettimeofday(&stop, NULL);
-                    log = fopen("algodata_reverse.csv", "a");
+                    log = fopen("algodata_pi.csv", "a");
                     if(!log) {
                         printf("Failed to open file.\n");
                         break;
@@ -161,7 +161,7 @@ int main(){
                     gettimeofday(&start, NULL);
                     bubbleSort(arr, i);
                     gettimeofday(&stop, NULL);
-                    log = fopen("algodata_reverse.csv", "a");
+                    log = fopen("algodata_pi.csv", "a");
                     if(!log) {
                         printf("Failed to open file.\n");
                         break;
@@ -180,7 +180,7 @@ int main(){
                     gettimeofday(&start, NULL);
                     qsort(arr, i, sizeof(int), c);
                     gettimeofday(&stop, NULL);
-                    log = fopen("algodata_reverse.csv", "a");
+                    log = fopen("algodata_pi.csv", "a");
                     if(!log) {
                         printf("Failed to open file.\n");
                         break;
