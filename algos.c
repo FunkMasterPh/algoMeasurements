@@ -79,8 +79,7 @@ void mergeSort(int merge_a[], int size) {
             merge(merge_a, low, mid, size - 1);
         }
     }
-    if(pair / 2 < size) merge(merge_a, 0, pair / 2 - 1, size - 1);
-    
+    if(pair / 2 < size) merge(merge_a, 0, pair / 2 - 1, size - 1);   
 }
 
 void insertionSort(int a[], int size){
