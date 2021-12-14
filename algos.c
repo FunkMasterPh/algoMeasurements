@@ -19,7 +19,7 @@ void sortTimer(char* argv1, char* argv2, int choice, char* alg){
         if(arr) {
             if(choice == 4) {
                 gettimeofday(&start, NULL);
-                qsort(arr, SIZE, sizeof(int), c);
+                qsort(arr, i, sizeof(int), c);
                 gettimeofday(&stop, NULL);
             } else {
                 gettimeofday(&start, NULL);
