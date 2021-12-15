@@ -33,7 +33,7 @@ void sortTimer(char* argv1, char* argv2, int choice, char* alg){
             }
             fprintf(log, "%s,%d,%lu\n", alg, i, (stop.tv_sec - start.tv_sec) 
                     * 1000000 + stop.tv_usec - start.tv_usec);
-            free(arr);
+            //free(arr);
             fclose(log);
         }
     }
